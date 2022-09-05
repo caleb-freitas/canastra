@@ -24,9 +24,9 @@ export default function AddLink() {
         placeholder="Save a URL https://..."
         name={form.names.url}
         required
-        className="border rounded text-neutral-800 w-80 p-2"
+        className="border-transparent rounded text-neutral-100 bg-neutral-800 w-80 p-2 focus:border-cyan-700 border-2"
       />
-      <FormSubmit className="bg-cyan-700 rounded text-ne p-2">Add</FormSubmit>
+      <FormSubmit className="bg-cyan-700 rounded text-ne p-2 hover:bg-cyan-900 transition-colors">Add</FormSubmit>
       <FormReset>
         <Cancel weight="bold" />
       </FormReset>
