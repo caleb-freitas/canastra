@@ -1,10 +1,14 @@
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
-import * as trpc from "@trpc/server"
 import { createRouter } from "./context";
-import { createLinkSchema, deleteLinkByIdSchema } from "../schema/link";
-import { z } from "zod";
+import { createLinkSchema, deleteLinkByIdSchema, updateLinkSchema } from "../schema/link";
+import { conflict, notFound } from "../schema/trpc-errors";
 
 export const linkRouter = createRouter()
+  .query("get-all-links", {
+    async resolve({ ctx }) {
+      return await ctx.prisma.link.findMany()
+    }
+  })
   .mutation("add-link", {
     input: createLinkSchema,
     async resolve({ input, ctx }) {
@@ -15,26 +19,12 @@ export const linkRouter = createRouter()
           }
         })
       } catch (error) {
-        if (error instanceof z.ZodError) {
-          throw new trpc.TRPCError({
-            code: "BAD_REQUEST",
-            message: error.message
-          })
-        }
         if (error instanceof PrismaClientKnownRequestError) {
           if (error.code === "P2002") {
-            throw new trpc.TRPCError({
-              code: "CONFLICT",
-              message: "Link already exists"
-            })
+            conflict("URL")
           }
         }
       }
-    }
-  })
-  .query("get-all-links", {
-    async resolve({ ctx }) {
-      return await ctx.prisma.link.findMany()
     }
   })
   .mutation("delete-link", {
@@ -49,10 +39,30 @@ export const linkRouter = createRouter()
       } catch (error) {
         if (error instanceof PrismaClientKnownRequestError) {
           if (error.code === "P2001") {
-            throw new trpc.TRPCError({
-              code: "NOT_FOUND",
-              message: `The record searched for in the where condition (link.id = "${input.id}") does not exist`
-            })
+            notFound(input.id)
+          }
+        }
+      }
+    }
+  })
+  .mutation("update-link", {
+    input: updateLinkSchema,
+    async resolve({ input, ctx }) {
+      try {
+        const { id, url } = input
+        return await ctx.prisma.link.update({
+          where: { id },
+          data: { url }
+        })
+      } catch (error) {
+        if (error instanceof PrismaClientKnownRequestError) {
+          if (error.code === "P2001") {
+            notFound(input.id)
+          }
+        }
+        if (error instanceof PrismaClientKnownRequestError) {
+          if (error.code === "P2002") {
+            conflict("URL")
           }
         }
       }

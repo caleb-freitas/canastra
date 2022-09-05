@@ -1,26 +1,21 @@
 import { z } from "zod";
-
-const customErrorMap: z.ZodErrorMap = (issue, ctx) => {
-  if (issue.code === z.ZodIssueCode.invalid_string) {
-    if (issue.validation === "url") {
-      console.error(issue)
-      return {
-        message: "Invalid URL. Please, make sure to provide a valid URL."
-      }
-    }
-  }
-  return { message: ctx.defaultError };
-};
+import { customErrorMap } from "./custom-error-map";
 
 z.setErrorMap(customErrorMap);
 
 export const createLinkSchema = z.object({
-  url: z.string({ errorMap: customErrorMap }).url()
+  url: z.string().url()
 })
 
 export const deleteLinkByIdSchema = z.object({
-  id: z.string()
+  id: z.string().cuid()
+})
+
+export const updateLinkSchema = z.object({
+  id: z.string().cuid(),
+  url: z.string().url()
 })
 
 export type CreateLinkInput = z.TypeOf<typeof createLinkSchema>
 export type DeleteLinkByIdInput = z.TypeOf<typeof deleteLinkByIdSchema>
+export type UpdateLinkInput = z.TypeOf<typeof updateLinkSchema>
