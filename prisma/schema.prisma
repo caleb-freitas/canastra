@@ -9,11 +9,23 @@ generator js {
   previewFeatures = ["referentialIntegrity"]
 }
 
+model Tag {
+  id        String   @id @default(cuid())
+  linkId    String?
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  link      Link?    @relation(fields: [linkId], references: [id])
+
+  @@index([name(sort: Asc)], map: "tag.name")
+}
+
 model Link {
   id        String   @id @default(cuid())
   url       String   @unique @db.VarChar(255)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  tags      Tag[]
 
   @@index([url(sort: Asc)], map: "link.url")
 }

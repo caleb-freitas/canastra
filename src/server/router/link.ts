@@ -2,22 +2,25 @@ import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
 import * as trpc from "@trpc/server"
 import { createRouter } from "./context";
 import { createLinkSchema, deleteLinkByIdSchema } from "../schema/link";
+import { z } from "zod";
 
 export const linkRouter = createRouter()
   .mutation("add-link", {
     input: createLinkSchema,
     async resolve({ input, ctx }) {
       try {
-        let { url } = input
-        if (!url.startsWith("https://")) {
-          url = "https://" + url
-        }
         return await ctx.prisma.link.create({
           data: {
-            url,
+            ...input,
           }
         })
       } catch (error) {
+        if (error instanceof z.ZodError) {
+          throw new trpc.TRPCError({
+            code: "BAD_REQUEST",
+            message: error.message
+          })
+        }
         if (error instanceof PrismaClientKnownRequestError) {
           if (error.code === "P2002") {
             throw new trpc.TRPCError({
@@ -31,7 +34,11 @@ export const linkRouter = createRouter()
   })
   .query("get-all-links", {
     async resolve({ ctx }) {
-      return await ctx.prisma.link.findMany()
+      return await ctx.prisma.link.findUnique({
+        where: {
+
+        }
+      })
     }
   })
   .mutation("delete-link-by-id", {
