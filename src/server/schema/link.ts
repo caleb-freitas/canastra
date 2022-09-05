@@ -1,7 +1,4 @@
 import { z } from "zod";
-import { customErrorMap } from "./custom-error-map";
-
-z.setErrorMap(customErrorMap);
 
 export const createLinkSchema = z.object({
   url: z.string().url()

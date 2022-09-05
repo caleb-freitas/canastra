@@ -1,7 +1,7 @@
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
 import { createRouter } from "./context";
 import { createLinkSchema, deleteLinkByIdSchema, updateLinkSchema } from "../schema/link";
-import { conflict, notFound } from "../schema/trpc-errors";
+import { conflict, notFound } from "../errors/trpc-errors";
 
 export const linkRouter = createRouter()
   .query("get-all-links", {
@@ -13,6 +13,9 @@ export const linkRouter = createRouter()
     input: createLinkSchema,
     async resolve({ input, ctx }) {
       try {
+        if (!input.url) {
+          console.log("shit happened")
+        }
         return await ctx.prisma.link.create({
           data: {
             ...input,
