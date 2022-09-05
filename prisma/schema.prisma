@@ -11,9 +11,9 @@ generator js {
 
 model Link {
   id        String   @id @default(cuid())
-  url       String   @db.VarChar(255)
+  url       String   @unique @db.VarChar(255)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([url(sort: Asc)])
+  @@index([url(sort: Asc)], map: "link.url")
 }
