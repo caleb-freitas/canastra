@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Pencil, PencilSimple, Trash } from "phosphor-react";
+import { PencilSimple, Trash } from "phosphor-react";
 import { trpc } from "../../utils/trpc";
 
 export default function Links() {
