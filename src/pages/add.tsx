@@ -9,7 +9,7 @@ import { X as Cancel } from "phosphor-react"
 import { CreateLinkInput } from "../server/schema/link"
 import { trpc } from "../utils/trpc";
 
-export default function Example() {
+export default function AddLink() {
   const form = useFormState<CreateLinkInput>({ defaultValues: { url: "" } });
   const { mutate, error } = trpc.useMutation(["links.add-link"])
 

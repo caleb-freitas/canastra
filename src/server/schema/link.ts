@@ -23,4 +23,4 @@ export const deleteLinkByIdSchema = z.object({
 })
 
 export type CreateLinkInput = z.TypeOf<typeof createLinkSchema>
-export type DeleteItemByIdInput = z.TypeOf<typeof deleteLinkByIdSchema>
+export type DeleteLinkByIdInput = z.TypeOf<typeof deleteLinkByIdSchema>

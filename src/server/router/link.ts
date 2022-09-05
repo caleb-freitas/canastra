@@ -34,14 +34,10 @@ export const linkRouter = createRouter()
   })
   .query("get-all-links", {
     async resolve({ ctx }) {
-      return await ctx.prisma.link.findUnique({
-        where: {
-
-        }
-      })
+      return await ctx.prisma.link.findMany()
     }
   })
-  .mutation("delete-link-by-id", {
+  .mutation("delete-link", {
     input: deleteLinkByIdSchema,
     async resolve({ input, ctx }) {
       try {
