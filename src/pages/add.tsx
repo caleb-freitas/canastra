@@ -26,7 +26,7 @@ export default function AddLink() {
         required
         className="border rounded w-80 p-2"
       />
-      <FormSubmit className="bg-pocket-green rounded p-2">Add</FormSubmit>
+      <FormSubmit className="bg-cyan-700 rounded p-2">Add</FormSubmit>
       <FormReset>
         <Cancel />
       </FormReset>
