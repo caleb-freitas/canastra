@@ -16,26 +16,40 @@ export default function Links() {
   return (
     <div className="m-4">
       <h1 className="text-2xl">
-        My Links
+        My links
       </h1>
       {data?.map(link => {
         return (
-          <div key={link.id} className="bg-neutral-800 space-x-2 rounded p-2 mt-2">
+          <div key={link.id} className="flex flex-row bg-neutral-800 space-x-4 rounded p-2 mt-2">
             <Link href={link.url}>
               <a target="_blank" className="hover:underline">{link.url}</a>
             </Link>
-            <button className="rounded p-0.5 hover:border-amber-500 border-transparent border-2">
-              <Tag />
-            </button>
-            <button className="rounded p-0.5 hover:border-sky-600 border-transparent border-2">
-              <PencilSimple />
-            </button>
-            <button
-              onClick={() => mutate({ id: link.id })}
-              className="rounded p-0.5 hover:border-red-600 border-transparent border-2"
-            >
-              <Trash />
-            </button>
+
+            <div className="flex flex-row space-x-2">
+              <button className="rounded p-0.5 hover:border-amber-500 border-transparent border-2">
+                <Tag />
+              </button>
+
+              <Link href={`links/${link.id}`} key={link.id} >
+                <a key={link.id}>
+                  <div
+                    key={link.id}
+                    className="rounded p-0.5 hover:border-cyan-600 border-transparent border-2"
+                  >
+                    <PencilSimple />
+                  </div>
+                </a>
+              </Link>
+
+              <button
+                onClick={() => mutate({ id: link.id })}
+                className="rounded p-0.5 hover:border-red-600 border-transparent border-2"
+              >
+                <Trash />
+              </button>
+            </div>
+
+
           </div>
         )
       })}

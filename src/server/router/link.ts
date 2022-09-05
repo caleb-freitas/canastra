@@ -1,12 +1,28 @@
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
 import { createRouter } from "./context";
-import { createLinkSchema, deleteLinkByIdSchema, updateLinkSchema } from "../schema/link";
+import { createLinkSchema, deleteLinkByIdSchema, getLinkByIdSchema, updateLinkSchema } from "../schema/link";
 import { conflict, notFound } from "../errors/trpc-errors";
 
 export const linkRouter = createRouter()
   .query("get-all-links", {
     async resolve({ ctx }) {
       return await ctx.prisma.link.findMany()
+    }
+  })
+  .query("get-link", {
+    input: getLinkByIdSchema,
+    async resolve({ input, ctx }) {
+      try {
+        return await ctx.prisma.link.findUnique({
+          where: { id: input.id }
+        })
+      } catch (error) {
+        if (error instanceof PrismaClientKnownRequestError) {
+          if (error.code === "P2001") {
+            notFound(input.id)
+          }
+        }
+      }
     }
   })
   .mutation("add-link", {
