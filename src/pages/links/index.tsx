@@ -22,7 +22,7 @@ export default function Links() {
         return (
           <div key={link.id} className="flex flex-row bg-neutral-800 space-x-4 rounded p-2 mt-2">
             <Link href={link.url}>
-              <a target="_blank" className="hover:underline">{link.url}</a>
+              <a target="_blank" className="hover:underline">{link.title}</a>
             </Link>
 
             <div className="flex flex-row space-x-2">

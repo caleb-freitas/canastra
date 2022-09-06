@@ -71,10 +71,10 @@ export const linkRouter = createRouter()
     input: updateLinkSchema,
     async resolve({ input, ctx }) {
       try {
-        const { id, url } = input
+        const { id, title } = input
         return await ctx.prisma.link.update({
           where: { id },
-          data: { url }
+          data: { title }
         })
       } catch (error) {
         if (error instanceof PrismaClientKnownRequestError) {

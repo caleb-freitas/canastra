@@ -11,7 +11,7 @@ export const deleteLinkByIdSchema = z.object({
 
 export const updateLinkSchema = z.object({
   id: z.string().cuid(),
-  url: z.string().url()
+  title: z.string().min(3).max(255)
 })
 
 export const getLinkByIdSchema = z.object({

@@ -9,7 +9,7 @@ type LinkPageContentProps = {
 }
 
 const LinkPageContent: React.FC<LinkPageContentProps> = (props: LinkPageContentProps) => {
-  const form = useFormState<UpdateLinkInput>({ defaultValues: { id: "", url: "" } });
+  const form = useFormState<UpdateLinkInput>({ defaultValues: { id: "", title: "" } });
 
   const utils = trpc.useContext();
   const { data } = trpc.useQuery(["links.get-link", { id: props.id }])
@@ -32,20 +32,15 @@ const LinkPageContent: React.FC<LinkPageContentProps> = (props: LinkPageContentP
     <>
       <h1 className="text-2xl m-4">Edit your link</h1>
       <div className="m-4">
-        {data.url}
+        <p>{data.title}</p>
+        <p>{data.url}</p>
       </div>
       <Form state={form} className="flex space-x-2 justify-center m-12">
         {error && error.message}
         <FormInput
-          placeholder="Save a URL https://..."
-          name={form.names.url}
+          placeholder="Edit your link title"
+          name={form.names.title}
           required
-          className="border-transparent rounded text-neutral-100 bg-neutral-800 w-80 p-2 focus:border-cyan-700 border-2"
-        />
-        <FormInput
-          placeholder="Add your tags (future feature)"
-          name={form.names.id}
-          disabled
           className="border-transparent rounded text-neutral-100 bg-neutral-800 w-80 p-2 focus:border-cyan-700 border-2"
         />
         <FormSubmit className="bg-cyan-700 rounded text-ne p-2 hover:bg-cyan-900 transition-colors">Update</FormSubmit>
