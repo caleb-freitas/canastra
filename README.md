@@ -63,6 +63,8 @@ datasource db {
 
 - Google authentication using NextAuth.js.
 
+- Pagination with Prisma and tRPC `useInfiniteQuery()`.
+
 - Assign tags to links.
 
 - Search bar using fuzzy finder (search by title and tag).
