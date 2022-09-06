@@ -18,7 +18,7 @@ const Home: NextPage = () => {
 
       <main className="container mx-auto flex flex-col items-center justify-center min-h-screen p-4">
         <h1 className="text-5xl md:text-[5rem] leading-normal font-extrabold">
-          Create <span className="text-purple-600">T3</span> App
+          Create <span className="text-cyan-700">T3</span> App
         </h1>
         <p className="text-2xl">This stack uses:</p>
         <div className="grid gap-3 pt-3 mt-3 text-center md:grid-cols-2 lg:w-2/3">
@@ -58,7 +58,7 @@ const TechnologyCard = ({
       <h2 className="text-lg">{name}</h2>
       <p className="text-sm">{description}</p>
       <a
-        className="mt-3 text-sm underline text-violet-500 decoration-dotted underline-offset-2"
+        className="mt-3 text-sm underline text-cyan-600 decoration-dotted underline-offset-2"
         href={documentation}
         target="_blank"
         rel="noreferrer"
