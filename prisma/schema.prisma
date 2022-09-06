@@ -22,10 +22,11 @@ model Tag {
 
 model Link {
   id        String   @id @default(cuid())
-  url       String   @unique @db.VarChar(255)
+  title     String   @db.VarChar(255)
+  url       String   @db.VarChar(2048)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   tags      Tag[]
 
-  @@index([url(sort: Asc)], map: "link.url")
+  @@index([title(sort: Asc)], map: "link.title")
 }

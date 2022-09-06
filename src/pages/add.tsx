@@ -10,11 +10,14 @@ import { CreateLinkInput } from "../server/schema/link"
 import { trpc } from "../utils/trpc";
 
 export default function AddLink() {
-  const form = useFormState<CreateLinkInput>({ defaultValues: { url: "" } });
+  const form = useFormState<CreateLinkInput>({ defaultValues: { title: "", url: "" } });
+
   const { mutate, error } = trpc.useMutation(["links.add-link"])
 
   form.useSubmit(() => {
-    mutate(form.values)
+    mutate({
+      ...form.values
+    })
   });
 
   return (
@@ -23,6 +26,12 @@ export default function AddLink() {
       <FormInput
         placeholder="Save a URL https://..."
         name={form.names.url}
+        required
+        className="border-transparent rounded text-neutral-100 bg-neutral-800 w-80 p-2 focus:border-cyan-700 border-2"
+      />
+      <FormInput
+        placeholder="Add your title here"
+        name={form.names.title}
         required
         className="border-transparent rounded text-neutral-100 bg-neutral-800 w-80 p-2 focus:border-cyan-700 border-2"
       />

@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 export const createLinkSchema = z.object({
+  title: z.string().min(3).max(255),
   url: z.string().url()
 })
 
