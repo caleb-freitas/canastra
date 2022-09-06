@@ -51,7 +51,7 @@ datasource db {
 
 ## How the application works
 
-- On the `/add` page you can provide a `title` and an `URL`, both strings, and those values will be stored on the database hosted on PlanetScale after you click on the `Add` button.
+- On the `/` page you can provide a `title` and an `URL`, both strings, and those values will be stored on the database hosted on PlanetScale after you click on the `Add` button.
 
 - On the `/links` page you can view all your links. On this same page, you can delete links and edit them.
 
