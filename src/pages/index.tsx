@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   Form,
   FormInput,
@@ -42,6 +43,16 @@ export default function AddLink() {
           <Cancel weight="bold" />
         </FormReset>
       </Form>
+
+      <Link href={`links`}>
+        <a>
+          <h2
+            className="m-4 w-20 text-xl rounded p-0.5 hover:border-cyan-600 border-transparent border-2"
+          >
+            My links
+          </h2>
+        </a>
+      </Link>
     </>
 
   );
