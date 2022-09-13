@@ -23,37 +23,26 @@ export default function AddLink() {
 
   return (
     <>
-      <h1 className="text-2xl m-4">Add your link. This must be a preview</h1>
-      <Form state={form} className="flex flex-row space-x-2 justify-center m-12">
+      <h1 className="text-xl p-4">Save a link</h1>
+      <Form state={form} className="flex flex-row space-x-2 justify-center p-4">
         {error && error.message}
         <FormInput
           placeholder="Save a URL https://..."
           name={form.names.url}
           required
-          className="border-transparent rounded text-neutral-100 bg-neutral-800 w-80 p-2 focus:border-cyan-700 border-2"
+          className="border-transparent rounded text-neutral-100 bg-neutral-800 w-80 p-2"
         />
         <FormInput
           placeholder="Add your title here"
           name={form.names.title}
           required
-          className="border-transparent rounded text-neutral-100 bg-neutral-800 w-80 p-2 focus:border-cyan-700 border-2"
+          className="border-transparent rounded text-neutral-100 bg-neutral-800 w-80 p-2"
         />
-        <FormSubmit className="bg-cyan-700 rounded text-ne p-2 hover:bg-cyan-900 transition-colors">Add</FormSubmit>
+        <FormSubmit className="bg-cyan-700 rounded text-ne p-2 hover:bg-cyan-900 hover:duration-200">Save</FormSubmit>
         <FormReset>
           <Cancel weight="bold" />
         </FormReset>
       </Form>
-
-      <Link href={`links`}>
-        <a>
-          <h2
-            className="m-4 w-20 text-xl rounded p-0.5 hover:border-cyan-600 border-transparent border-2"
-          >
-            My links
-          </h2>
-        </a>
-      </Link>
     </>
-
-  );
+  )
 }

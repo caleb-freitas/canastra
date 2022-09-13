@@ -32,8 +32,8 @@ const LinkPageContent: React.FC<LinkPageContentProps> = (props: LinkPageContentP
     <>
       <h1 className="text-2xl m-4">Edit your link</h1>
       <div className="m-4">
-        <p>{data.title}</p>
-        <p>{data.url}</p>
+        <p><strong>Title: </strong>{data.title}</p>
+        <p><strong>URL: </strong> {data.url}</p>
       </div>
       <Form state={form} className="flex space-x-2 justify-center m-12">
         {error && error.message}

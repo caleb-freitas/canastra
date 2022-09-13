@@ -21,7 +21,7 @@ export default function Links() {
 
   return (
     <div className="m-4">
-      <h1 className="text-2xl">My links</h1>
+      <h1 className="text-xl mb-4">Your links</h1>
         {data?.pages.map(group =>
             group.links.map(link => {
               return (
@@ -31,15 +31,15 @@ export default function Links() {
                   </Link>
       
                   <div className="flex flex-row absolute right-4 space-x-2">
-                    <button className="rounded p-0.5 hover:border-amber-500 border-transparent border-2">
-                      <Tag />
+                    <button className="rounded p-0.5 hover:text-yellow-600 border-transparent border-2">
+                      <Tag className="hover:bg" />
                     </button>
       
                     <Link href={`links/${link.id}`} key={link.id} >
                       <a key={link.id}>
                         <div
                           key={link.id}
-                          className="rounded p-0.5 hover:border-cyan-600 border-transparent border-2"
+                          className="rounded p-0.5 hover:text-cyan-600 font-bold border-transparent border-2"
                         >
                           <PencilSimple />
                         </div>
@@ -48,7 +48,7 @@ export default function Links() {
       
                     <button
                       onClick={() => mutate({ id: link.id })}
-                      className="rounded p-0.5 hover:border-red-600 border-transparent border-2 ml-auto"
+                      className="rounded p-0.5 hover:text-red-600 border-transparent border-2 ml-auto"
                     >
                       <Trash />
                     </button>
