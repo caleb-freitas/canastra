@@ -23,7 +23,7 @@ export default function AddLink() {
 
   return (
     <>
-      <h1 className="text-2xl m-4">Add your link</h1>
+      <h1 className="text-2xl m-4">Add your link. This must be a preview</h1>
       <Form state={form} className="flex flex-row space-x-2 justify-center m-12">
         {error && error.message}
         <FormInput
