@@ -7,6 +7,7 @@ import {
   getLinkByIdSchema,
   updateLinkSchema
 } from "../schema/link";
+import { z } from "zod";
 
 export const linkRouter = createRouter()
   .query("get-all-links", {
@@ -90,3 +91,29 @@ export const linkRouter = createRouter()
       }
     }
   })
+  .query('infinite-links', {
+    input: z.object({
+      limit: z.number().min(1).max(100).nullish(),
+      cursor: z.string().nullish(),
+    }),
+    async resolve({ input, ctx }) {
+      const limit = input.limit ?? 10;
+      const { cursor } = input;
+      const links = await ctx.prisma.link.findMany({
+        take: limit + 1,
+        cursor: cursor ? { id: cursor } : undefined,
+        orderBy: {
+          id: 'asc',
+        },
+      })
+      let nextCursor: typeof cursor | undefined = undefined;
+      if (links.length > limit) {
+        const nextItem = links.pop()
+        nextCursor = nextItem?.id
+      }
+      return {
+        links,
+        nextCursor,
+      }
+    }
+  });
